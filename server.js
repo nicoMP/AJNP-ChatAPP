@@ -68,9 +68,11 @@ const readline = require('readline').createInterface({
     output: process.stdout
   });
    
-  readline.question(`Server running on Poer: ${PORT} \nPress Enter To Quit`, name => {
+  readline.question(`Server running on Poer: ${PORT} \nPress Enter To Quit`, () => {
     console.log("shutting down");
     io.emit("ShutDown"); //emits shutdown signal that client can recieve to terminate server
     readline.close();
     return process.exit(0);//kills the server
-  });  
+  }); 
+
+  
