@@ -2,13 +2,14 @@ const express = require('express');
 const http = require('http');
 const path = require("path");
 const socketIO = require('socket.io');
+const { isNullOrUndefined } = require('util');
 const messageFormatter = require('./Utilities/msg');//import message formatter that gives username name and time
 const {userJoin, getCurrentUser, getUserInRoom, userRemoval} = require('./Utilities/users');//import message formatter that handles users
 
 
 const app = express();
 const server = http.createServer(app);//creating server from express app
-const io = socketIO(server);//binds server sockets to io 
+const io = socketIO(server);//binds server to socket.io
 
 
 
@@ -17,10 +18,10 @@ const io = socketIO(server);//binds server sockets to io
 
 
 //sets static folder
-app.use(express.static(path.join(__dirname, "public")));//allows for you to use the folder attach the name of the folder here along other
+app.use(express.static(path.join(__dirname, "public")));//allows for you to use the fronmt end folder attach the name of the folder here along other activated at every http request
 //process.env returns the user environment here were requesting port specifically to see if the env has a predefine one
-const PORT = process.env.PORT || 3002;
-server.listen(PORT, () => console.log('Server running on ' + PORT)); 
+const PORT = process.env.PORT || 3001;
+server.listen(PORT); //attaches port and outputs message on server cosnole to show it is running
 
 
 //runs on new connection
@@ -61,3 +62,15 @@ io.on('connection', socket =>{
     
     
 });
+
+const readline = require('readline').createInterface({
+    input: process.stdin,
+    output: process.stdout
+  });
+   
+  readline.question(`Server running on Poer: ${PORT} \nPress Enter To Quit`, name => {
+    console.log("shutting down");
+    io.emit("ShutDown"); //emits shutdown signal that client can recieve to terminate server
+    readline.close();
+    return process.exit(0);//kills the server
+  });  

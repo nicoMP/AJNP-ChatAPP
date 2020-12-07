@@ -27,6 +27,6 @@ cForm.addEventListener('submit', (f)=>{
 function outputToChat(message){
   const div = document.createElement('div');//create divideer
   div.classList.add('message');
-  div.innerHTML = '<p class = "meta">' + message.username + '<span>' + message.time + '</span></p> <class = "text">' + message.text + '</p>';
+  div.innerHTML = '<p class = "meta">' + message.username + '<span>' + message.time + '</span></p> <class = "text">' + message.text + '</p>';//a way the htnl can display it csan be adapted
   document.querySelector('.chat-messages').appendChild(div);
 } 
