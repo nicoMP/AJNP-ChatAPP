@@ -6,7 +6,7 @@ const cors = require('cors');
 const { addUser, removeUser, getUser, getUsersInRoom } = require('./users');
 
 //create port for app to run
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3000;
 
 //create express app
 const app = express();

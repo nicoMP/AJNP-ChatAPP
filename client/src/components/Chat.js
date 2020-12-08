@@ -8,7 +8,7 @@ import InfoBar from './InfoBar';
 import Input from './Input';
 
 //URL endpoint for the socket app
-const URL = 'http://localhost:5000';
+const URL = 'http://ec2-3-94-207-224.compute-1.amazonaws.com:5000';
 
 let socket;
 
