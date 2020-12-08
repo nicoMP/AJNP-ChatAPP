@@ -83,6 +83,6 @@ readline.question(`Server running on Port: ${PORT} \nPress Enter To Quit`, () =>
   readline.close();
   setTimeout(() => {
     return process.exit(0);//kills the server
-  }, 1000);
+  }, 2000);
   
 });
