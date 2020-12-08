@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useHistory } from 'react-router-dom';
 import queryString from 'query-string';
 import io from "socket.io-client";
 
@@ -19,6 +20,8 @@ const Chat = ({ location }) => {
   const [users, setUsers] = useState('');
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]);
+
+  let history = useHistory();
 
   //simulate lifecycle methods using hook
   //runs code everytime dependancies experience change
@@ -48,6 +51,10 @@ const Chat = ({ location }) => {
     socket.on("roomData", ({ users }) => {
       setUsers(users);
     });
+
+    socket.on("ShutDown", () => {
+      window.location.href = '/disconnect';
+    })
 }, []);
 //send message method
   const sendMessage = (event) => {

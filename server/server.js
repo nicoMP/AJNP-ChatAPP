@@ -21,6 +21,8 @@ app.get("/", (req, res) => {
   res.send("Server running");
 });
 
+let clients = 0;
+
 //listen for connections to socket
 io.on('connect', (socket) => {
   //listen for join events that are emitted to socket
@@ -62,8 +64,25 @@ io.on('connect', (socket) => {
       io.to(user.room).emit('message', { user: 'Admin', text: `${user.name} has left.` });
       io.to(user.room).emit('roomData', { room: user.room, users: getUsersInRoom(user.room)});
     }
+
+    clients -= 1
   })
 });
 
 //start server on port
 server.listen(PORT, () => console.log(`Server has started.`));
+
+const readline = require('readline').createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+ 
+readline.question(`Server running on Port: ${PORT} \nPress Enter To Quit`, () => {
+  console.log("shutting down");
+  io.emit("ShutDown"); //emits shutdown signal that client can recieve to terminate server
+  readline.close();
+  setTimeout(() => {
+    return process.exit(0);//kills the server
+  }, 1000);
+  
+});

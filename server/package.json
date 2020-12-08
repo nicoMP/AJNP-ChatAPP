@@ -4,7 +4,8 @@
   "description": "chat application for se3313 project",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "node server.js",
+    "dev": "nodemon server.js"
   },
   "keywords": [],
   "author": "",
